@@ -50,3 +50,16 @@ html<fold text='...'>
 //-<fold text=' Some text...'>
    Some text
    that should be folded well</fold>
+
+if cond === true<fold text='...'>
+  h1 Hello!
+  if data == [1,2,3]<fold text='...'>
+    span Array</fold>
+  else if data === 5<fold text='...'>
+    span Number</fold>
+  else<fold text='...'>
+    p Something else</fold>
+  else if cond === false<fold text='...'>
+    a(href="") Looks like it's false</fold></fold>
+elseif<fold text='...'>
+  span It's false here too</fold>

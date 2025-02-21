@@ -5,6 +5,7 @@ import com.intellij.lexer.Lexer;
 import com.intellij.testFramework.LexerTestCase;
 import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.IdeaProjectTestFixture;
+// import com.intellij.testFramework.fixtures.IdeaTestExecutionPolicy;
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory;
 import com.jetbrains.plugins.jade.js.JavaScriptInJadeLexer;
 import com.jetbrains.plugins.jade.lexer.JadeLexer;
@@ -39,6 +40,10 @@ public class JadeLexerTest extends LexerTestCase {
     finally {
       super.tearDown();
     }
+  }
+
+  protected @NotNull String getPathToTestDataFile(@NotNull String extension) {
+    return "/home/connor/Development/intellij-plugins" + "/" + getDirPath() + "/" + getTestName(true) + extension;
   }
 
   @Override

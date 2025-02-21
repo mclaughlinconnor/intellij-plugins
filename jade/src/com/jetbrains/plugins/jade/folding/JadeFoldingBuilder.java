@@ -5,8 +5,10 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.lang.xml.XmlFoldingBuilder;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiRecursiveElementVisitor;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlElement;
@@ -15,9 +17,7 @@ import com.intellij.util.text.StringTokenizer;
 import com.intellij.xml.util.XmlTagUtil;
 import com.jetbrains.plugins.jade.psi.JadeElementTypes;
 import com.jetbrains.plugins.jade.psi.JadeTokenTypes;
-import com.jetbrains.plugins.jade.psi.impl.JadeAttributeImpl;
-import com.jetbrains.plugins.jade.psi.impl.JadeCommentImpl;
-import com.jetbrains.plugins.jade.psi.impl.JadeMixinDeclarationImpl;
+import com.jetbrains.plugins.jade.psi.impl.*;
 import com.jetbrains.plugins.jade.psi.stubs.JadeStubElementTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,6 +62,29 @@ public final class JadeFoldingBuilder extends XmlFoldingBuilder {
       int nameEnd = nameIdentifier.getTextRange().getEndOffset();
       int end = element.getTextRange().getEndOffset();
       return new TextRange(nameEnd, end);
+    } else if (element instanceof JadeConditionalStatementImpl statementElement) {
+      final PsiElement header = statementElement.getHeader();
+      if (header == null) {
+        return null;
+      }
+
+      final PsiElement body = statementElement.getBody();
+      if (body == null) {
+        return null;
+      }
+
+      int headerEnd = header.getTextRange().getEndOffset();
+      int end = body.getTextRange().getEndOffset();
+      return new TextRange(headerEnd, end);
+    } else if (element instanceof JadeConditionalElseImpl elseElement) {
+      final PsiElement keyword = elseElement.getKeyword();
+      if (keyword == null) {
+        return null;
+      }
+
+      int headerEnd = keyword.getTextRange().getEndOffset();
+      int end = elseElement.getTextRange().getEndOffset();
+      return new TextRange(headerEnd, end);
     }
     else {
       return null;
@@ -70,13 +93,24 @@ public final class JadeFoldingBuilder extends XmlFoldingBuilder {
 
   @Override
   protected void doAddForChildren(XmlElement tag, List<FoldingDescriptor> foldings, Document document) {
-    for (PsiElement element : tag.getChildren()) {
-      final IElementType type = element.getNode().getElementType();
-      if (type == JadeStubElementTypes.MIXIN_DECLARATION
-        || type == JadeElementTypes.COMMENT) {
-        addToFold(foldings, element, document);
+    final PsiRecursiveElementVisitor visitor = new PsiRecursiveElementVisitor() {
+      @Override
+      public void visitElement(@NotNull PsiElement element) {
+        ProgressManager.checkCanceled();
+        final IElementType type = element.getNode().getElementType();
+        if (type == JadeStubElementTypes.MIXIN_DECLARATION
+                || type == JadeElementTypes.COMMENT
+                || type == JadeElementTypes.CONDITIONAL_STATEMENT
+                || type == JadeElementTypes.CONDITIONAL_ELSE
+        ) {
+          addToFold(foldings, element, document);
+        }
+
+        super.visitElement(element);
       }
-    }
+    };
+
+    tag.accept(visitor);
 
     super.doAddForChildren(tag, foldings, document);
   }

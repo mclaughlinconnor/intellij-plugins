@@ -35,7 +35,7 @@ import org.coffeescript.lang.CoffeeScriptHtmlScriptContentProvider;
 import org.coffeescript.lang.parser.CoffeeScriptParserDefinition;
 
 import static com.intellij.lang.javascript.JSElementTypeServiceHelper.registerJSElementTypeServices;
-import static com.intellij.xml.testFramework.XmlElementTypeServiceHelper.registerXmlElementTypeServices;
+// import static com.intellij.xml.testFramework.XmlElementTypeServiceHelper.registerXmlElementTypeServices;
 
 public abstract class JadeBaseParsingTestCase extends ParsingTestCase {
   public JadeBaseParsingTestCase() {
@@ -47,7 +47,7 @@ public abstract class JadeBaseParsingTestCase extends ParsingTestCase {
   protected void setUp() throws Exception {
     super.setUp();
 
-    registerXmlElementTypeServices(getApplication(), getTestRootDisposable());
+    // registerXmlElementTypeServices(getApplication(), getTestRootDisposable());
     registerJSElementTypeServices(getApplication(), getTestRootDisposable());
 
     addExplicitExtension(LanguageFileViewProviders.INSTANCE, JadeLanguage.INSTANCE, new JadeFileViewProviderFactory());

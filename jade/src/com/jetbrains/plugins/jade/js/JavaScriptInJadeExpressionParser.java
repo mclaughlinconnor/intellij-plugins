@@ -5,7 +5,7 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.ecmascript6.parsing.ES6ExpressionParser;
 import com.intellij.lang.javascript.JSElementTypes;
 import com.intellij.lang.javascript.JSTokenTypes;
-import com.intellij.lang.javascript.JavaScriptParserBundle;
+import com.intellij.lang.javascript.JavaScriptCoreBundle;
 import com.intellij.psi.tree.IElementType;
 import com.jetbrains.plugins.jade.psi.JadeTokenTypes;
 
@@ -55,7 +55,7 @@ class JavaScriptInJadeExpressionParser extends ES6ExpressionParser<JavaScriptInJ
       PsiBuilder.Marker expression = builder.mark();
       boolean parseSuccessful = !parseExpressionOptional();
       if (parseSuccessful) {
-        builder.error(JavaScriptParserBundle.message("javascript.parser.message.expected.expression"));
+        builder.error(JavaScriptCoreBundle.message("javascript.parser.message.expected.expression"));
         builder.advanceLexer();
       }
       expression.done(JadeTokenTypes.INTERPOLATED_EXPRESSION);

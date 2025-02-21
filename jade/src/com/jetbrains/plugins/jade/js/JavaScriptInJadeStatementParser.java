@@ -7,7 +7,7 @@ import com.intellij.lang.ecmascript6.parsing.ES6StatementParser;
 import com.intellij.lang.javascript.JSElementTypes;
 import com.intellij.lang.javascript.JSStubElementTypes;
 import com.intellij.lang.javascript.JSTokenTypes;
-import com.intellij.lang.javascript.JavaScriptParserBundle;
+import com.intellij.lang.javascript.JavaScriptCoreBundle;
 import com.intellij.psi.tree.IElementType;
 import com.jetbrains.plugins.jade.JadeBundle;
 import com.jetbrains.plugins.jade.psi.JadeElementTypes;
@@ -37,7 +37,7 @@ public class JavaScriptInJadeStatementParser extends ES6StatementParser<JavaScri
 
     // copied from the superclass
     if (firstToken == null) {
-      builder.error(JavaScriptParserBundle.message("javascript.parser.message.expected.statement"));
+      builder.error(JavaScriptCoreBundle.message("javascript.parser.message.expected.statement"));
       return;
     }
 
@@ -57,7 +57,7 @@ public class JavaScriptInJadeStatementParser extends ES6StatementParser<JavaScri
     builder.advanceLexer();
 
     if (!markVariable()) {
-      builder.mark().error(JavaScriptParserBundle.message("javascript.parser.message.expected.variable.name"));
+      builder.mark().error(JavaScriptCoreBundle.message("javascript.parser.message.expected.variable.name"));
       statement.done(JadeTokenTypes.EACH_EXPR);
       return;
     }
@@ -66,7 +66,7 @@ public class JavaScriptInJadeStatementParser extends ES6StatementParser<JavaScri
       builder.advanceLexer();
 
       if (!markVariable()) {
-        builder.mark().error(JavaScriptParserBundle.message("javascript.parser.message.expected.variable.name"));
+        builder.mark().error(JavaScriptCoreBundle.message("javascript.parser.message.expected.variable.name"));
         statement.done(JadeTokenTypes.EACH_EXPR);
         return;
       }
@@ -104,7 +104,7 @@ public class JavaScriptInJadeStatementParser extends ES6StatementParser<JavaScri
       }
 
       if (seenRest) {
-        builder.error(JavaScriptParserBundle.message("javascript.parser.message.expected.rparen"));
+        builder.error(JavaScriptCoreBundle.message("javascript.parser.message.expected.rparen"));
       }
 
       if (isFirst) {
@@ -127,7 +127,7 @@ public class JavaScriptInJadeStatementParser extends ES6StatementParser<JavaScri
       else {
         boolean expressionParsed = parser.getExpressionParser().parseAssignmentExpression(false);
         if (!expressionParsed) {
-          builder.error(JavaScriptParserBundle.message("javascript.parser.message.expected.expression"));
+          builder.error(JavaScriptCoreBundle.message("javascript.parser.message.expected.expression"));
           break;
         }
       }

@@ -2,7 +2,7 @@
 package com.jetbrains.plugins.jade.parser;
 
 import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.javascript.JavaScriptParserBundle;
+import com.intellij.lang.javascript.JavaScriptCoreBundle;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.xml.XmlTokenType;
 import com.intellij.xml.parsing.XmlParserBundle;
@@ -29,7 +29,7 @@ public final class TagParsing {
           builder.error(XmlParserBundle.message("xml.parsing.attribute.value.expected"));
         }
         else if (tokenType == null) {
-          builder.error(JavaScriptParserBundle.message("javascript.parser.message.expected.rparen"));
+          builder.error(JavaScriptCoreBundle.message("javascript.parser.message.expected.rparen"));
         }
         if (tokenType == JadeTokenTypes.RPAREN) {
           builder.advanceLexer();

@@ -13,7 +13,7 @@ public class JavaScriptInJadeLanguageDialect extends JSLanguageDialect implement
   public static final JavaScriptInJadeLanguageDialect INSTANCE = new JavaScriptInJadeLanguageDialect();
 
   private JavaScriptInJadeLanguageDialect() {
-    super("JSInJade", DIALECT_OPTION_HOLDER);
+    super("JS_IN_JADE", DIALECT_OPTION_HOLDER);
   }
 
   @Override

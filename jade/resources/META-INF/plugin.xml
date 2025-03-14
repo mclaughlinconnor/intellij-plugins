@@ -59,7 +59,7 @@
 
     <spellchecker.support language="Jade" implementationClass="com.jetbrains.plugins.jade.spellcheck.JadeSpellcheckingStrategy"/>
 
-    <lang.parserDefinition language="JSInJade" implementationClass="com.jetbrains.plugins.jade.js.JavascriptInJadeParserDefinition"/>
+    <lang.parserDefinition language="JS_IN_JADE" implementationClass="com.jetbrains.plugins.jade.js.JavascriptInJadeParserDefinition"/>
     <annotator language="Jade" implementationClass="com.jetbrains.plugins.jade.validation.JadeAnnotatingVisitor"/>
 
     <editor.backspaceModeOverride language="Jade" implementationClass="com.intellij.codeInsight.editorActions.SmartBackspaceDisabler"/>
@@ -81,6 +81,7 @@
 
     <psi.referenceContributor language="Jade" implementation="com.jetbrains.plugins.jade.psi.references.JadeReferenceContributor"/>
     <psi.referenceContributor language="Jade" implementation="com.jetbrains.plugins.jade.psi.references.JadeCssReferenceContributor"/>
+    <psi.referenceContributor language="JavaScript" implementation="com.jetbrains.plugins.jade.psi.references.JavaScriptInJadeReferenceContributor"/>
     <stubElementTypeHolder class="com.jetbrains.plugins.jade.psi.stubs.JadeStubElementTypes"/>
     <stubIndex implementation="com.jetbrains.plugins.jade.psi.stubs.JadeMixinIndex"/>
 
@@ -105,8 +106,8 @@
     <embeddedCssProvider implementation="com.jetbrains.plugins.jade.JadeEmbeddedCssProvider"/>
   </extensions>
   <extensions defaultExtensionNs="JavaScript">
-    <intentionAndInspectionFilter language="JSInJade" implementationClass="com.jetbrains.plugins.jade.js.JavaScriptInJadeInspectionFilter"/>
-    <inheritedLanguagesConfigurableProvider language="JSInJade"
+    <intentionAndInspectionFilter language="JS_IN_JADE" implementationClass="com.jetbrains.plugins.jade.js.JavaScriptInJadeInspectionFilter"/>
+    <inheritedLanguagesConfigurableProvider language="JS_IN_JADE"
                                             implementationClass="com.jetbrains.plugins.jade.js.JSInJadeConfigurableProvider"/>
 
     <indexedFileTypeProvider implementation="com.jetbrains.plugins.jade.js.JSInJadeIndexedFileTypeProvider"/>
